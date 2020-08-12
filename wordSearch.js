@@ -52,7 +52,6 @@ const exist = (board, word) => {
             const j = y + dy;
             if (i >= 0 && i < h && j >= 0 && j < w) {
                 if (go(i, j, k + 1)) {
-                    board[x][y] = word[k]; // reset
                     return true;
                 }
             }
@@ -77,5 +76,4 @@ const board = [
   ];
 const words = ["ABCCED", "SEE", "ABCB"];
 
-words.forEach(word => exist(board, word));
 

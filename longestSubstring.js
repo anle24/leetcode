@@ -1,4 +1,4 @@
-/**
+/*
  * Longest Substring Without Repeating Characters
  * Difficulty: Medium
  * 
@@ -21,13 +21,13 @@
  *               Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
  */
 
-/*
-While traversing the string, check to see if current substring exists in map
-if it does not, add it as key and its index as the value
-if it does and its length > maxLength, save desired format
-(start & end indeces, substring, or length) and update maxLength
-*/
 
+/*
+    While traversing the string, check to see if current substring exists in map
+    if it does not, add it as key and its index as the value
+    if it does and its length > maxLength, save desired format
+    (start & end indeces, substring, or length) and update maxLength
+*/
 const longestSubstringOne = string => {
     let start = 0;
     let maxLength = 0;

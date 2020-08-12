@@ -35,8 +35,10 @@
 
 const setZeroes = matrix => {
     if (matrix.length === 0) return matrix;
+
     const m = matrix.length;
     const n = matrix[0].length;
+    
     const xSet = new Set();
     const ySet = new Set();
 
