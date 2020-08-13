@@ -25,20 +25,9 @@ nums2.length == n
 */
 
 const mergeSorted = (nums1, nums2) => {
-    if (!nums1.length) return nums2;
-    if (!nums2.length) return nums1;
-    let i = 0;
-    while (nums2.length > 0 || i < nums1.length) {
-        if (nums2[0] <= nums1[i]) {
-            nums1.splice(i, 0, nums2[0]);
-            nums2.shift();
-        }
-        i++;
+    var insertPos = m + n - 1;
+    m--; n--;
+    while (n >= 0) {
+        nums1[insertPos--] = (nums1[m] > nums2[n]) ? nums1[m--] : nums2[n--];
     }
-    return nums1.concat(nums2);
 }
-
-const array1 = [1,4,6,7,9, 10, 50, 53];
-const array2 = [2,3,4,6,7,8];
-
-console.log(mergeSorted(array1, array2));
