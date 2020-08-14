@@ -1,9 +1,9 @@
 /**
  * 23. Merge k Sorted Lists
  * Difficulty: Hard
- * 
+ *
  * Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
- * 
+ *
  * Example:
  *  Input:
  *  [
@@ -17,10 +17,9 @@
 /**
  * Solution 1
  * Iterate through list of lists and merge two at a time
- */ 
-const mergeKLists = lists => {
-    
-}
+ */
+
+const mergeKLists = (lists) => {};
 
 /**
  * Solution 2

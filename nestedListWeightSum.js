@@ -22,20 +22,20 @@
  */
 
 const dfs = (nestedList, depth) => {
-	let sum = 0;
-	const n = nestedList.length;
-	for (let i = 0; i < n; i++) {
-		if (Number.isInteger(nestedList[i])) {
-			sum += nestedList[i] * depth;
-		} else if (Array.isArray(nestedList[i])) {
-			sum += dfs(nestedList[i], depth + 1);
-		}
-	}
-	return sum;
+  let sum = 0;
+  const n = nestedList.length;
+  for (let i = 0; i < n; i++) {
+    if (Number.isInteger(nestedList[i])) {
+      sum += nestedList[i] * depth;
+    } else if (Array.isArray(nestedList[i])) {
+      sum += dfs(nestedList[i], depth + 1);
+    }
+  }
+  return sum;
 };
 
 const depthSum = (nestedList) => {
-	return dfs(nestedList, 1);
+  return dfs(nestedList, 1);
 };
 
 console.log(depthSum([[1, 1], 2, [1, 1]]));

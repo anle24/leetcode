@@ -19,32 +19,42 @@ call isBadVersion(4) -> true
 Then 4 is the first bad version. 
 */
 
-const isBadVersion = n => {
-    return n >= 3;
-}
+const isBadVersion = (n) => {
+  return n >= 3;
+};
 
-const firstBadVersion = n => {
-    let count = 0;
-    
-    const check = (first, last) => {
-        console.log(first, last);
-        if (first == last) return false;
-        const mid = Math.floor((first + last) / 2);
-        console.log('mid', mid);
-        if (isBadVersion(mid)) {
-            count++;
-            if (!isBadVersion(mid - 1)) {
-                count++;
-                console.log('count', count);
-                return mid;
-            }
-            return check(first, mid);
-        } else {
-            return check(mid, last);
-        }
+const solution = (isBadVersion) => {
+  /**
+   * @param {integer} n Total versions
+   * @return {integer} The first bad version
+   */
+  return function (n) {
+    // binary search
+    var start = 1,
+      end = n;
+    while (start < end) {
+      var mid = Math.floor(start + (end - start) / 2);
+      if (isBadVersion(mid)) {
+        end = mid; // look on left side of mid
+      } else {
+        start = mid + 1; // look on the right side of mid
+      }
     }
+    return start;
+  };
+};
 
-    return check(1, n);
-}
-
+const firstBadVersion = (n) => {
+  let start = 1;
+  let end = n;
+  while (start < end) {
+    var mid = Math.floor(start + (end - start) / 2);
+    if (isBadVersion(mid)) {
+      end = mid; // look on left side of mid
+    } else {
+      start = mid + 1; // look on the right side of mid
+    }
+  }
+  return start;
+};
 console.log(firstBadVersion(100));
