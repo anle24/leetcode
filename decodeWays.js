@@ -28,46 +28,68 @@
  * @returns {number}
  */
 
-const numEncodings = (s) => {
-  if (s.length < 1) return 0;
+// const numEncodings = (s) => {
+//   if (s.length < 1) return 0;
+//   let memo = [];
+
+//   const recur = (index) => {
+//     console.log("currently at index", index);
+//     let result = 0;
+//     if (index === s.length) {
+//       console.log("reached end of string, returning 1");
+//       return 1;
+//     }
+//     if (memo[index] != null) {
+//       console.log(
+//         `memo[${index}]:${memo[index]} exists, returning ${memo[index]}`
+//       );
+//       return memo[index];
+//     }
+//     if (s[index] > 0) {
+//       result += recur(index + 1);
+//       console.log(
+//         `s[${index}]:${s[index]} > 0, so can use as single digit, result:${result}`
+//       );
+//     }
+
+//     if (s[index] != 0 && s[index + 1] != null && s[index] + s[index + 1] < 27) {
+//       console.log(
+//         `${s[index]}${
+//           s[index + 1]
+//         } doesn't start with 0, has second digit, and value is less than 27, so add values then move index by 2`
+//       );
+//       result += recur(index + 2);
+//       console.log("result is now", result);
+//     }
+
+//     memo[index] = result;
+//     console.log(`memo[${index}] is now ${result}`, memo);
+//     return result;
+//   };
+
+//   return recur(0);
+// };
+
+// numEncodings("2264523312317");
+
+const numDecodings = (s) => {
   let memo = [];
-
-  const recur = (index) => {
-    console.log("currently at index", index);
-    let result = 0;
-    if (index === s.length) {
-      console.log("reached end of string, returning 1");
-      return 1;
-    }
-    if (memo[index] != null) {
-      console.log(
-        `memo[${index}]:${memo[index]} exists, returning ${memo[index]}`
-      );
-      return memo[index];
-    }
-    if (s[index] > 0) {
-      result += recur(index + 1);
-      console.log(
-        `s[${index}]:${s[index]} > 0, so can use as single digit, result:${result}`
-      );
+  memo[0] = 1;
+  memo[1] = s.charAt(0) == "0" ? 0 : 1;
+  for (let i = 2; i <= s.length; i++) {
+    const oneDigit = parseInt(s.substring(i - 1, i));
+    const twoDigit = parseInt(s.substring(i - 2, i));
+    if (oneDigit >= 1) {
+      memo[i] = memo[i] ? memo[i] + memo[i - 1] : memo[i - 1];
+      console.log(memo[i], memo[i - 1]);
     }
 
-    if (s[index] != 0 && s[index + 1] != null && s[index] + s[index + 1] < 27) {
-      console.log(
-        `${s[index]}${
-          s[index + 1]
-        } doesn't start with 0, has second digit, and value is less than 27, so add values then move index by 2`
-      );
-      result += recur(index + 2);
-      console.log("result is now", result);
+    if (twoDigit >= 10 && twoDigit <= 26) {
+      memo[i] = memo[i] ? memo[i] + memo[i - 2] : memo[i - 2];
     }
+  }
 
-    memo[index] = result;
-    console.log(`memo[${index}] is now ${result}`, memo);
-    return result;
-  };
-
-  return recur(0);
+  return memo[s.length] || 0;
 };
 
-numEncodings("226");
+console.log(numDecodings("00"));
