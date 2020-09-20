@@ -50,5 +50,10 @@ const maxArea = (height) => {
   return max;
 };
 
+/**
+ * Time Complexity: O(n) single pass
+ * Space Complexity: O(1) constant space
+ */
+
 const height1 = [1, 8, 6, 2, 5, 4, 8, 3, 7];
 console.log(maxArea(height1));

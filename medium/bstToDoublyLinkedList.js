@@ -84,3 +84,65 @@ const treeToDoublyList = (root) => {
 
   return head;
 }
+
+/**
+ * example walkthrough
+ * 1. move left
+ * 2. process node
+ * 3. move right
+ * 
+ *     (4) root     dfs(node)           recursion stack: dfs([4])
+ *     / \          
+ *    2   5      1. dfs(node.left)  =>  recursion stack: dfs([2])
+ *   / \                                                 dfs([4])
+ *  1   3           
+ * 
+ *      4           dfs([2])
+ *     / \          
+ *   (2)  5      1. dfs(node.left)  =>  recursion stack: dfs([1])
+ *   / \                                                 dfs([2])
+ *  1   3                                                dfs([4])
+ * 
+ *      4           dfs([1])
+ *     / \       1. node.left == null, so completed
+ *    2   5      2. head == null, so head = [1]      =>   recursion stack: --------> dfs([1]) (1. done, 2. done, 3. done)
+ *   / \            prev == null, so prev = [1]                            dfs([2])  (1. done)
+ * (1)  3           prev = node (again), prev = [1]                        dfs([4])
+ *               3. node.right == null, so completed      head, prev -> [1]
+ * 
+ *      4           dfs([2])
+ *     / \       1. completed                        =>  recursion stack: dfs([3]) just added
+ *   (2)  5      2. prev != null, so                                      dfs([2]) (1. done, 2. done, 3. dfs([3]) in progress)
+ *   / \            prev.right = node, [1] -> [2]                         dfs([4])
+ *  1   3           node.left = prev, [1] <=> [2]
+ *                  prev = node, prev = [2]               head     prev
+ *               3. dfs(node.right) => dfs([3])            [1] <=> [2]
+ * 
+ *      4           dfs([3])
+ *     / \       1. node.left == null, so completed  =>  recursion stack: ---------> dfs([3]) (1. done, 2. done, 3. done)
+ *    2   5      2. prev != null, so                                      ---------> dfs([2]) (1. done, 2. done, 3. dfs([3]) done)
+ *   / \            prev.right = node, [2] -> [3]                         dfs([4])
+ *  1  (3)          node.left = prev, [2] <=> [3]
+ *                  prev = node, prev = [3]              head             prev
+ *               3. node.right == null, so completed      [1] <=> [2] <=> [3]
+ * 
+ *     (4)          dfs([4])
+ *     / \       1. completed                        =>  recursion stack: dfs([5]) just added
+ *    2   5      2. prev != null,                                         dfs([4]) (1. done, 2. done, 3. dfs([5]) in progress)
+ *   / \            prev.right = node, [3] -> [4]
+ *  1   3           node.left = prev, [3] <=> [4]
+ *                  prev = node, prev = [4]              head                     prev
+ *               3. dfs(node.right) => dfs([5])           [1] <=> [2] <=> [3] <=> [4]
+ * 
+ *      4           dfs([5])
+ *     / \       1. node.left == null, so completed  =>  recursion stack: ---------> dfs([5]) (1. done, 2. done, 3. done)
+ *    2  (5)     2. prev != null,                                         ---------> dfs([4]) (1. done, 2. done, 3. dfs([5]) done)
+ *   / \            prev.right = node, [4] -> [5]
+ *  1   3           node.left = prev, [4] <=> [5]
+ *                  prev = node, prev = [5]              head                             prev
+ *               3. node.right == null, so completed      [1] <=> [2] <=> [3] <=> [4] <=> [5]
+ * 
+ *                  dfs recursion stack completed       head                             prev            
+ *                  prev.right = head, [5] -> [1]        [1] <=> [2] <=> [3] <=> [4] <=> [5]    DONE!
+ *                  head.left = prev, [5] <=> [1]         ^===============================^
+ */

@@ -79,17 +79,25 @@ const numDecodings = (s) => {
   for (let i = 2; i <= s.length; i++) {
     const oneDigit = parseInt(s.substring(i - 1, i));
     const twoDigit = parseInt(s.substring(i - 2, i));
+    console.log('index', i);
+    console.log('oneDigit', oneDigit);
+    console.log('twoDigit', twoDigit);
     if (oneDigit >= 1) {
+      console.log(`if ${oneDigit} >= 1`);
+      console.log(`memo[i]:${memo[i]} ? memo[i]:${memo[i]} + memo[i - 1]:${memo[i - 1]} : memo[i - 1]:${memo[i - 1]}`);
       memo[i] = memo[i] ? memo[i] + memo[i - 1] : memo[i - 1];
-      console.log(memo[i], memo[i - 1]);
     }
 
     if (twoDigit >= 10 && twoDigit <= 26) {
+      console.log(`if 10 <= ${twoDigit} <= 26`);
+      console.log(`memo[i]:${memo[i]} ? memo[i]:${memo[i]} + memo[i - 2]:${memo[i-2]} : memo[i - 2]:${memo[i-2]}`);
       memo[i] = memo[i] ? memo[i] + memo[i - 2] : memo[i - 2];
     }
+    console.log(memo);
   }
 
   return memo[s.length] || 0;
 };
 
-console.log(numDecodings("00"));
+// console.log(numDecodings("00"));
+console.log(numDecodings("2264523312317"));

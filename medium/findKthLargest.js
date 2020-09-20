@@ -20,6 +20,12 @@
  * in the final sorted array. Eventually one of these will be the kth largest element's position.
  * We then have found the answer
  * 
+ * We skip half the work on each recursion because we only need to quicksort the half that num - k is in
+ * So after each recurrence, we find the final resting spot of the selected pivot, with each side of it
+ * not necessarily completely sorted. If the index of the pivot's final position is < the index num - k,
+ * then the final value of index num - k is somewhere to the right of the last pivot. We do not have to
+ * bother sorting or dealing with the left side at all, and vice versa, with each recurrence.
+ * 
  * @param {Array<number>} nums 
  * @param {number} k
  * @return {number} 
@@ -68,7 +74,7 @@ const partition = (arr, left, right, pivotIndex) => {
   console.log(`swapping arr[pivotIndex](arr[${pivotIndex}]) with arr[right](arr[${right}])...`);
   console.log(arr);
   swap(arr, pivotIndex, right);
-  console.log(`to... ${arr}`);
+  console.log('to...', arr);
 
   console.log('iterating through partition...');
   for (let i = left; i < right; i++) {

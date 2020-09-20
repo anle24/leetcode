@@ -57,45 +57,53 @@
 
 /**
  * Solution: BFS
- * Use queue to establish order of processing nodes
+ * Because we want vertical order, or top-down order,
+ * we will process nodes in breadth-first-search manner using a queue
+ * add the node and its level to the queue
+ * use a map to store the values at each level
+ * keep track of the min/max levels to iterate over the range to
+ * retrieve the values in level order
  */
 const verticalOrder = root => {
+  // map to store array of values by level
   const map = {};
+
+  // queue for processing nodes in BFS order [node, level]
   const queue = [
     [root, 0]
   ];
+
+  // keep track of the range of levels to iterate over later
   let minLevel = 0;
   let maxLevel = 0;
+
   //bfs
   while (queue.length) {
     const node = queue.shift();
     const n = node[0];
-    if (!n) return [];
     const level = node[1];
     minLevel = Math.min(minLevel, level);
     maxLevel = Math.max(maxLevel, level);
+
+    // add to map using level as key
     if (!map[level]) {
       map[level] = [n.val];
     } else {
       map[level].push(n.val);
     }
+
+    // add children to queue
     if (n.left != null) queue.push([n.left, level - 1]);
     if (n.right != null) queue.push([n.right, level + 1]);
   }
-  /*
-  {
-    '0': [ 1, 5, 6 ],
-    '1': [ 3, 8 ],
-    '2': [ 7 ],
-    '3': [ 9 ],
-    '-1': [ 2 ],
-    '-2': [ 4 ]
-  }
-  */
+
+  // result array
   const ret = [];
+
+  // iterate over the range [minLevel, maxLevel] to retrieve arrays from map at each level
   for (let i = minLevel; i <= maxLevel; i++) {
     ret.push(map[i]);
   }
-  Object.keys(map).sort((a, b) => a - b).forEach((a) => ret.push(map[a]));
+  // Object.keys(map).sort((a, b) => a - b).forEach((a) => ret.push(map[a]));
   return ret;
 }

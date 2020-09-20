@@ -64,6 +64,12 @@ const longestPalindrome = (s) => {
   return s.substring(start, end + 1);
 };
 
+/**
+ * Time Complexity: O(n^2) - expanding palindrome from its center (current index) takes O(n) time
+ *                           and checking all n indeces O(n) => O(n^2)
+ * Space Complexity: O(1) - only reassigning variables
+ */
+
 const string = "abcabcbb";
 
 console.log(longestPalindrome(string));

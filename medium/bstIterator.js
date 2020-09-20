@@ -67,6 +67,48 @@ function BSTIterator(root) {
   };
 }
 
+/**
+ * example walkthrough
+ *    (7) root      while (root)
+ *    / \             stack.push(root)
+ *   3   15           root = root.left
+ *      /  \
+ *     9    20      next() will be left-most val
+ * 
+ *     7                
+ *    / \       stack: [7] => [3]   return root.val = 3   =>   stack: [7]
+ *  (3)  15                   [7]
+ *      /  \                        root = root.right (null)
+ *     9    20
+ * 
+ *    (7)         hasNext() ? root == null, but stack.length = 1, so true
+ *    / \         next()
+ *   3   15       while (root) skipped because root == null,
+ *      /  \      take root from top of stack
+ *     9    20    stack = [7], so root = [7]
+ *                root = root.right ([15]), return 7
+ * 
+ *     7          next()...
+ *    / \         while (root)          stack: [15] => [9]    root = [9], result = 9
+ *   3  (15)        stack.push(root)                   [15]   root = root.right (null)
+ *      /  \        root = root.left
+ *    (9)   20                                             => stack: [15]
+ * 
+ *     7          next()...
+ *    / \         while (root) skipped
+ *   3  (15)      get root from stack
+ *      /  \      root = [15], stack: []
+ *     9    20    root = root.right, return 15
+ * 
+ *     7          next()...             stack: [20]       => []
+ *    / \         while (root)          root = stack.pop() = [20]
+ *   3   15         stack.push(root)    root = root.right (null), return 20
+ *      /  \        root = root.left (null)
+ *     9   (20) root
+ * 
+ *                hasNext() ? root == null and stack is empty, so false
+ */
+
 // ["BSTIterator","next","next","hasNext","next","hasNext","next","hasNext","next","hasNext"]
 // [[[7,3,15,null,null,9,20]],[null],[null],[null],[null],[null],[null],[null],[null],[null]]
 

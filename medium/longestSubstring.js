@@ -35,20 +35,22 @@ const longestSubstringOne = (string) => {
   for (let i = 0; i < string.length; i++) {
     const char = string[i];
 
-    if (map[char] >= start) {
-      start = map[char] + 1;
+    if (map[char]) {
+      start = Math.max(start, map[char] + 1)
     }
-
     map[char] = i;
 
-    if (i - start + 1 > maxLength) {
-      maxLength = i - start + 1;
-    }
+    maxLength = Math.max(maxLength, i - start + 1);
   }
 
   return maxLength;
 };
 
+/**
+ * Time Complexity: O(n) - iterating n times
+ * Space Complexity: O(min(m, n)) - m size of input, n size of charset
+ */
+
 const str = "afikguhadfiughasdfigjhadslfkgnslikrghna";
 
-longestSubstringOne(str);
+console.log(longestSubstringOne(str));
