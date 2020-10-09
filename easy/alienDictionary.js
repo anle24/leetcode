@@ -24,7 +24,7 @@ const isAlienSorted = (words, order) => {
       // keep moving pointer until reaching an non-matching letter
       while (
         prev[pointer] === curr[pointer] &&
-        pointer < Math.max(curr.length, prev.length)
+        pointer < Math.min(curr.length, prev.length)
       ) {
         console.log(pointer);
         pointer++;

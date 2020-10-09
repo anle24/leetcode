@@ -45,7 +45,7 @@ const minWindow = (s, t) => {
         map[current]++;
       }
 
-      // if this character's total was pushed over 0, then we have reached our current window's
+      // if this character's total was pushed back over 0, then we have reached our current window's
       // minimum, and will now be breaking the conditions once we remove this character
       if (map[current] > 0) {
         count++;

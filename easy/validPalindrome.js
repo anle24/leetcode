@@ -16,6 +16,7 @@ The string will only contain lowercase characters a-z. The maximum length of the
 */
 
 const validPalindrome = (s, corrections = 1) => {
+  console.log(s);
   let lo = 0;
   let hi = s.length - 1;
   while (lo < hi) {
